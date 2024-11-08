@@ -24,7 +24,7 @@ snippet fmt
 	run;
 
 snippet sql
-	proc sql noprint;
+	proc sql;
 	    create table \$1 as
 	    select \$2
 	    from \$3
@@ -68,19 +68,19 @@ snippet %macro
 snippet %let
 	%let \${1:macro_variable}=\${2:value};
 
-snippet %put
+snippet %mput
 	%put &\${1:macro_variable}.;
 
-snippet %put-error
+snippet %mput-error
 	%put ERROR: \${1:error message};
 
-snippet %put-note
+snippet %mput-note
 	%put NOTE: \${1:message};
 
-snippet %put-warning
+snippet %mput-warning
 	%put WARNING: \${1:message};
 
-snippet %if-then-else
+snippet %mif-then-else
 	%if \${1:condition} %then %do;
 		\$2;
 	%end;
@@ -88,17 +88,17 @@ snippet %if-then-else
 		\$3;
 	%end;
 
-snippet %do
+snippet %mdo
 	%do i=\$1 %to \$2;
 		\$3;
 	%end;
 
-snippet %dountil
+snippet %mdountil
 	%do %until (\${1:condition});
 		\$2;
 	%end;
 
-snippet %dowhile
+snippet %mdowhile
 	%do %while (\${1:condition});
 		\$2;
 	%end;
