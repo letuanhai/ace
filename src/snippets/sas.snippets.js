@@ -49,6 +49,13 @@ snippet dowhile
 		\$2;
 	end;
 
+snippet select
+	select (\${1:expression});
+		when (\$2) \$3;
+		when (\$4) \$5;
+		otherwise \$6;
+	end;
+
 snippet if-then-else
 	if \${1:condition} then \$2;
 	else \$3;
