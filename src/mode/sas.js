@@ -37,13 +37,12 @@
 var oop = require("../lib/oop");
 var TextMode = require("./text").Mode;
 var sasHighlightRules = require("./sas_highlight_rules").sasHighlightRules;
-// TODO: pick appropriate fold mode
-var FoldMode = require("./folding/cstyle").FoldMode;
-var SqlFoldMode = require("./folding/sql").FoldMode;
+var FoldMode = require("./folding/sas").FoldMode;
 
 var Mode = function() {
     this.HighlightRules = sasHighlightRules;
     this.foldingRules = new FoldMode();
+    this.$behaviour = this.$defaultBehaviour;
 };
 oop.inherits(Mode, TextMode);
 
