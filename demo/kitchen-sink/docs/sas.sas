@@ -2,11 +2,71 @@
 %let oracle_path=oracle_server_path;
 %let schema=YOUR_SCHEMA;
 libname dwh oracle user=&schema password="{SAS-ENCRYPTED}" 
-    path="&oracle_path" schema=&schema;
+	path="&oracle_path" schema=&schema;
 
 /* Macro to calculate sales metrics by region */
 %macro calc_sales_metrics(year=, outdsn=);
-    /* Extract base sales data from Oracle */
+	%if %upcase(&request)=STAT %then
+		%do;
+			proc means;
+				title "Summary of All Numeric Variables";
+			run;
+		%end;
+	%else %if %upcase(&request)=PRINTIT %then
+		%do;
+			proc print;
+				title "Listing of Data";
+			run;
+		%end;
+	%else %put Incorrect report type. Please try again.;
+
+	%do i=1 %to &howmany;
+		data month&i;
+			infile in&i;
+			input product cost date;
+		run;
+	%end;
+
+	data _null_;
+		do i=1 to 4;
+			put ;
+		end;
+		do until(n>=5);
+			put n=;
+			n+1;
+		end;
+		do while(n<5);
+			put n=;
+			n+1;
+		end;
+
+		select (a);
+			when (1) x=x*10;
+			when (2);
+			when (3,4,5) x=x*100;
+			otherwise put;
+		end;
+
+		if x then delete;
+		if status='OK' and type=3 then count+1;
+		if age ne agecheck then delete;
+		if x=0 then  
+		if y ne 0 then put 'X ZERO, Y NONZERO'; 
+		else put 'X ZERO, Y ZERO';
+		else put 'X NONZERO';
+		if answer=9 then
+			do;
+				answer=.;
+				put 'INVALID ANSWER FOR ' id=;
+			end;
+		else
+			do;
+				answer=answer10;
+				valid+1;
+			end;
+	run;
+
+	/* Extract base sales data from Oracle */
     proc sql;
         connect to oracle (user=&schema password="{SAS-ENCRYPTED}" 
             path="&oracle_path");
