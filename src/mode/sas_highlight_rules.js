@@ -419,7 +419,7 @@ var sasHighlightRules = function() {
             caseInsensitive: true,
             push: [{
                 token: "storage.type.class.sas",
-                regex: /\bquit *;/,
+                regex: /\bquit\b/,
                 caseInsensitive: true,
                 next: "pop"
             }, {
