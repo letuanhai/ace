@@ -218,6 +218,7 @@ var supportedModes = {
     Ruby:        ["rb|ru|gemspec|rake|^Guardfile|^Rakefile|^Gemfile"],
     Rust:        ["rs"],
     SaC:         ["sac"],
+    SAS:         ["sas"],
     SASS:        ["sass"],
     SCAD:        ["scad"],
     Scala:       ["scala|sbt"],
