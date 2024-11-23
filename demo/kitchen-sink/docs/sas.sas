@@ -1,3 +1,37 @@
+%macro theTimer;
+    %macro quitIfUnknown;
+        %if ( &objectID = 0 ) %then %do;
+            %put sendmail Batch(dataoffice) Error in data in BatchDat.Object. sas should stop;
+            %sendmail(Subject='Batch &BatchName ERROR in startup &dd_dt',
+                bodyfile=No,
+                Body='Batch &BatchName. not found in batchdat.object (&BatchEnv.!)',
+            );
+        %end;
+    %mend quitIfUnknown;
+	data _null_;
+		do until(n>=5);
+			put n=;
+			n+1;
+		end;
+		select (a);
+			when (1) x=x*10;
+			otherwise put;
+		end;
+
+		if answer=9 then
+			do;
+				answer=.;
+				put 'INVALID ANSWER FOR ' id=;
+			end;
+		else
+			do;
+				answer=answer10;
+				valid+1;
+			end;
+	run;
+
+%mend theTimer;
+
 /* Define Oracle connection details */
 %let oracle_path=oracle_server_path;
 %let schema=YOUR_SCHEMA;
