@@ -38,17 +38,42 @@ oop.inherits(FoldMode, BaseFoldMode);
     this.foldingStartMarkerSAS = /(?:\s|^)(proc|data|do|select|%macro|%do)\b/i;
     this.foldingStopMarkerSAS = /(?:\b)(run|quit|end|%mend|%end)\b/i;
 
+    this.testMarkerSAS = function (line) {
+        return {
+            isStart: this.foldingStartMarkerSAS.test(line),
+            isEnd: this.foldingStopMarkerSAS.test(line)
+        }
+    }
+
+    this.getStartMarkerSAS = function (line) {
+        var match = this.foldingStartMarkerSAS.exec(line);
+        if (!match)
+            return {};
+        return {
+            keyword: match[1].toLowerCase(),
+            index: match.index + 2,
+        };
+    }
+
+    this.getStopMarkerSAS = function (line) {
+        var match = this.foldingStopMarkerSAS.exec(line);
+        if (!match)
+            return {};
+        return {
+            keyword: match[1].toLowerCase(),
+            index: match.index + 2,
+        };
+    }
+
     this.getFoldWidgetRange = function (session, foldStyle, row) {
         var line = session.getLine(row);
-        var isStart = this.foldingStartMarkerSAS.test(line);
-        var isEnd = this.foldingStopMarkerSAS.test(line);
-        if (isStart || isEnd) {
-            var match = (isEnd) ? this.foldingStopMarkerSAS.exec(line) : this.foldingStartMarkerSAS.exec(line);
-            var keyword = match && match[1].toLowerCase();
-            if (keyword) {
-                var type = session.getTokenAt(row, match.index + 2).type;
+        var marker = this.testMarkerSAS(line);
+        if (marker.isStart || marker.isEnd) {
+            var match = (marker.isEnd) ? this.getStopMarkerSAS(line) : this.getStartMarkerSAS(line);
+            if (match.keyword) {
+                var type = session.getTokenAt(row, match.index).type;
                 if (this.tokenTypeSAS.includes(type))
-                    return this.sasBlock(session, row, match.index + 2);
+                    return this.sasBlock(session, row, match.index);
             }
         }
         return this.getFoldWidgetRangeBase(session, foldStyle, row);
@@ -57,24 +82,21 @@ oop.inherits(FoldMode, BaseFoldMode);
 
     this.getFoldWidget = function (session, foldStyle, row) {
         var line = session.getLine(row);
-        var isStart = this.foldingStartMarkerSAS.test(line);
-        var isEnd = this.foldingStopMarkerSAS.test(line);
-        if (isStart && !isEnd) {
-            var match = this.foldingStartMarkerSAS.exec(line);
-            var keyword = match && match[1].toLowerCase();
-            if (keyword) {
-                var type = session.getTokenAt(row, match.index + 2).type;
+        var marker = this.testMarkerSAS(line);
+        if (marker.isStart && !marker.isEnd) {
+            var match = this.getStartMarkerSAS(line);
+            if (match.keyword) {
+                var type = session.getTokenAt(row, match.index).type;
                 if (this.tokenTypeSAS.includes(type))
                     return "start";
             }
         }
-        if (foldStyle != "markbeginend" || !isEnd || isStart && isEnd)
+        if (foldStyle != "markbeginend" || !marker.isEnd || marker.isStart && marker.isEnd)
             return this.getFoldWidgetBase(session, foldStyle, row);
 
-        var match = line.match(this.foldingStopMarkerSAS);
-        var keyword = match && match[1].toLowerCase();
-        if (this.indentKeywordsSAS[keyword]) {
-            if (this.tokenTypeSAS.includes(session.getTokenAt(row, match.index + 2).type))
+        var match = this.getStopMarkerSAS(line);
+        if (this.indentKeywordsSAS[match.keyword]) {
+            if (this.tokenTypeSAS.includes(session.getTokenAt(row, match.index).type))
                 return "end";
         }
 
