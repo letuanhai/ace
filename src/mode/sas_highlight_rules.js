@@ -122,7 +122,7 @@ var sasHighlightRules = function() {
         }],
         "#datastep": [{
             token: "text",
-            regex: /\b(?=data)\b/,
+            regex: /(^\s*|;\*)(?=data)\b/,
             caseInsensitive: true,
             push: [{
                 token: "storage.type.class.sas",
