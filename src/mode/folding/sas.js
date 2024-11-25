@@ -35,33 +35,36 @@ oop.inherits(FoldMode, BaseFoldMode);
         "support.class.character-class.sas",
     ];
 
-    this.foldingStartMarkerSAS = /(?:\s|^)(proc|data|do|select|%macro|%do)\b/i;
-    this.foldingStopMarkerSAS = /(?:\b)(run|quit|end|%mend|%end)\b/i;
+    // All starting statements (except 'do' and '%do') must be at the beginning
+    //  of the line or follow a semicolon (that terminates the previous statement)
+    //  'do' and '%do' can also follow 'then' ('%then') or 'else' ('%else') statements
+    this.foldingStartMarkerSAS = /(^\s*|;\s*)(proc|data|do|select|%macro|%do)\b|(then\s*|else\s*)(do|%do)\b/i;
 
-    this.testMarkerSAS = function (line) {
-        return {
-            isStart: this.foldingStartMarkerSAS.test(line),
-            isEnd: this.foldingStopMarkerSAS.test(line)
-        }
-    }
+    // All ending statements must be at the beginning of the line or follow a semicolon
+    //  and be followed by a semicolon
+    //  'quit' can be followed by 'cancel' option and '%mend' can be followed by a macro name
+    this.foldingStopMarkerSAS = /(;\s*|^\s*)(run|quit\s*\w*|end|%mend\s*\w*|%end)\s*(?=;|$)/i;
+
+    this.testMarkerSAS = (line) => ({
+        isStart: this.foldingStartMarkerSAS.test(line),
+        isEnd: this.foldingStopMarkerSAS.test(line)
+    })
 
     this.getStartMarkerSAS = function (line) {
         var match = this.foldingStartMarkerSAS.exec(line);
-        if (!match)
-            return {};
+        if (!match) return {};
         return {
-            keyword: match[1].toLowerCase(),
-            index: match.index + 2,
+            keyword: (match[2] || match[4] || '').toLowerCase(),
+            index: match.index + 1 + (match[1] || match[3] || '').length,
         };
     }
 
     this.getStopMarkerSAS = function (line) {
         var match = this.foldingStopMarkerSAS.exec(line);
-        if (!match)
-            return {};
+        if (!match) return {};
         return {
-            keyword: match[1].toLowerCase(),
-            index: match.index + 2,
+            keyword: (match[2] || match[4] || '').toLowerCase().split(/\s+/)[0],
+            index: match.index + 1 + (match[1] || match[3] || '').length,
         };
     }
 
@@ -96,7 +99,9 @@ oop.inherits(FoldMode, BaseFoldMode);
 
         var match = this.getStopMarkerSAS(line);
         if (this.indentKeywordsSAS[match.keyword]) {
-            if (this.tokenTypeSAS.includes(session.getTokenAt(row, match.index).type))
+            var token = session.getTokenAt(row, match.index)
+            var type = token.type;
+            if (this.tokenTypeSAS.includes(type))
                 return "end";
         }
 
