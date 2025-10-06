@@ -95,7 +95,7 @@ class Decorator {
                     ycenter = this.canvasHeight - halfHeight;
                 }
 
-                const from =  ycenter - halfHeight;
+                const from = ycenter - halfHeight;
                 const to = ycenter + halfHeight;
                 const zoneHeight = to - from;
 
@@ -110,6 +110,15 @@ class Decorator {
             ctx.fillRect(0, currentY, this.canvasWidth, 2);
         }
 
+        const selections = this.renderer.session.selection.getAllRanges();
+        if (selections) {
+            selections.forEach(range => {
+                let startY = Math.round(this.getVerticalOffsetForRow(range.start.row) * this.heightRatio);
+                let endY = Math.round(this.getVerticalOffsetForRow(range.end.row) * this.heightRatio);
+                ctx.fillStyle = "rgba(62, 200, 255, 0.5)";
+                ctx.fillRect(0, startY, Math.round(this.canvasWidth / 2), endY - startY);
+            });
+        }
     }
 
     getVerticalOffsetForRow(row) {
