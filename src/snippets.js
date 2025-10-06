@@ -1057,6 +1057,10 @@ TabstopManager.prototype.keyboardHandler.bindKeys({
     },
     "Esc": function(editor) {
         editor.tabstopManager.detach();
+        // pass through escape key for vim mode
+        const keybinding = editor.getKeyboardHandler();
+        if (keybinding && keybinding.$id && keybinding.$id === "ace/keyboard/vim")
+            editor.keyBinding.onCommandKey({}, 0, 27);
     }
 });
 

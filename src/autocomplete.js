@@ -805,7 +805,13 @@ Autocomplete.prototype.commands = {
     "Ctrl-Up|Ctrl-Home": function(editor) { editor.completer.goTo("start"); },
     "Ctrl-Down|Ctrl-End": function(editor) { editor.completer.goTo("end"); },
 
-    "Esc": function(editor) { editor.completer.detach(); },
+    "Esc": function(editor) {
+        editor.completer.detach();
+        // pass through escape key for vim mode
+        const keybinding = editor.getKeyboardHandler();
+        if (keybinding && keybinding.$id && keybinding.$id === "ace/keyboard/vim")
+            editor.keyBinding.onCommandKey({}, 0, 27);
+     },
     "Return": function(editor) { return editor.completer.insertMatch(); },
     "Shift-Return": function(editor) { editor.completer.insertMatch(null, {deleteSuffix: true}); },
     "Tab": function(editor) {
