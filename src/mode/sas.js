@@ -36,11 +36,11 @@
 
 var oop = require("../lib/oop");
 var TextMode = require("./text").Mode;
-var sasHighlightRules = require("./sas_highlight_rules").sasHighlightRules;
+var SasHighlightRules = require("./sas_highlight_rules").SasHighlightRules;
 var FoldMode = require("./folding/sas").FoldMode;
 
 var Mode = function() {
-    this.HighlightRules = sasHighlightRules;
+    this.HighlightRules = SasHighlightRules;
     this.foldingRules = new FoldMode();
     this.$behaviour = this.$defaultBehaviour;
 };

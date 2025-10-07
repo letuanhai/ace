@@ -39,7 +39,7 @@
 var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
-var sasHighlightRules = function() {
+var SasHighlightRules = function() {
     // regexp must not have capturing parentheses. Use (?:) instead.
     // regexps are ordered -> the first match is used
 
@@ -3382,13 +3382,12 @@ var sasHighlightRules = function() {
     this.normalizeRules();
 };
 
-sasHighlightRules.metaData = {
-    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+SasHighlightRules.metaData = {
     name: "sas",
     scopeName: "source.sas"
 }
 
 
-oop.inherits(sasHighlightRules, TextHighlightRules);
+oop.inherits(SasHighlightRules, TextHighlightRules);
 
-exports.sasHighlightRules = sasHighlightRules;
+exports.SasHighlightRules = SasHighlightRules;

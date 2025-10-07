@@ -318,6 +318,14 @@ declare module "ace-code/src/snippets/ruby" {
     export const snippetText: string;
     export const scope: "ruby";
 }
+declare module "ace-code/src/snippets/sas.snippets" {
+    const _exports: string;
+    export = _exports;
+}
+declare module "ace-code/src/snippets/sas" {
+    export const snippetText: string;
+    export const scope: "sas";
+}
 declare module "ace-code/src/snippets/sh.snippets" {
     const _exports: string;
     export = _exports;
