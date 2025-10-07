@@ -1,0 +1,1210 @@
+[[
+   "start",
+  ["support.class.character-class.sas","%macro"],
+  ["text"," theTimer;"]
+],[
+   "start",
+  ["text","    "],
+  ["support.class.character-class.sas","%macro"],
+  ["text"," quitIfUnknown;"]
+],[
+   "start",
+  ["text","        "],
+  ["keyword.control.general.sas","%if"],
+  ["text"," ( "],
+  ["support.class.character-class.sas","&objectID"],
+  ["text"," "],
+  ["keyword.operator.logical.sas","="],
+  ["text"," "],
+  ["constant.numeric.sas","0"],
+  ["text"," ) "],
+  ["keyword.control.general.sas","%then"],
+  ["text"," "],
+  ["keyword.control.general.sas","%do"],
+  ["text",";"]
+],[
+   "start",
+  ["text","            "],
+  ["keyword.control.general.sas","%put"],
+  ["text"," sendmail Batch Error"],
+  ["keyword.operator.logical.sas"," in "],
+  ["text","data"],
+  ["keyword.operator.logical.sas"," in "],
+  ["text","BatchDat."],
+  ["support.format.sas","Object."],
+  ["text"," sas should stop;"]
+],[
+   "support.class.character-class.sas",
+  ["text","            "],
+  ["support.class.character-class.sas","%sendmail("],
+  ["variable.parameter.macro.sas","Subject"],
+  ["text","="],
+  ["string.quoted.single.sas","'Batch &BatchName ERROR in startup &dd_dt'"],
+  ["text",","]
+],[
+   "support.class.character-class.sas",
+  ["text","                "],
+  ["variable.parameter.macro.sas","bodyfile"],
+  ["text","="],
+  ["text","No,"]
+],[
+   "support.class.character-class.sas",
+  ["text","                "],
+  ["variable.parameter.macro.sas","Body"],
+  ["text","="],
+  ["string.quoted.single.sas","'Batch &BatchName. not found in batchdat.object (&BatchEnv.!)'"],
+  ["text",","]
+],[
+   "start",
+  ["text","            );"]
+],[
+   "start",
+  ["text","        "],
+  ["keyword.control.general.sas","%end"],
+  ["text",";"]
+],[
+   "start",
+  ["text","    "],
+  ["support.class.character-class.sas","%mend"],
+  ["text"," quitIfUnknown;"]
+],[
+   "text2",
+  ["text","\t"],
+  ["storage.type.class.sas","data"],
+  ["text"," "],
+  ["variable.variable.dataset.language.sas","_null_"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","do"],
+  ["text"," "],
+  ["keyword.control.conditional.sas","until"],
+  ["text","("],
+  ["keyword.function-call.generic.sas","n"],
+  ["keyword.operator.logical.sas",">="],
+  ["constant.numeric.sas","5"],
+  ["text",");"]
+],[
+   "text2",
+  ["text","\t\t\t"],
+  ["keyword.control.general.sas","put"],
+  ["text"," "],
+  ["keyword.function-call.generic.sas","n"],
+  ["keyword.operator.logical.sas","="],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t\t"],
+  ["keyword.function-call.generic.sas","n"],
+  ["entity.name.arithmetic.sas","+"],
+  ["constant.numeric.sas","1"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","end"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.general.sas","select"],
+  ["text"," (a);"]
+],[
+   "text2",
+  ["text","\t\t\twhen ("],
+  ["constant.numeric.sas","1"],
+  ["text",") "],
+  ["keyword.control.general.sas","x"],
+  ["keyword.operator.logical.sas","="],
+  ["keyword.control.general.sas","x"],
+  ["entity.name.arithmetic.sas","*"],
+  ["constant.numeric.sas","10"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t\totherwise "],
+  ["keyword.control.general.sas","put"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","end"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","if"],
+  ["text"," answer"],
+  ["keyword.operator.logical.sas","="],
+  ["constant.numeric.sas","9"],
+  ["text"," "],
+  ["keyword.control.conditional.sas","then"]
+],[
+   "text2",
+  ["text","\t\t\t"],
+  ["keyword.control.conditional.sas","do"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t\t\tanswer"],
+  ["keyword.operator.logical.sas","="],
+  ["text",".;"]
+],[
+   "text2",
+  ["text","\t\t\t\t"],
+  ["keyword.control.general.sas","put"],
+  ["text"," "],
+  ["string.quoted.single.sas","'INVALID ANSWER FOR '"],
+  ["text"," id"],
+  ["keyword.operator.logical.sas","="],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t\t"],
+  ["keyword.control.conditional.sas","end"],
+  ["text",";"]
+],[
+   "start",
+  ["text","\t"],
+  ["storage.type.class.sas","run"],
+  ["text",";"]
+],[
+   "start",
+  ["support.class.character-class.sas","%mend"],
+  ["text"," theTimer;"]
+],[
+   "start"
+],[
+   "start",
+  ["punctuation.definition.comment","/*"],
+  ["comment.blcok.sas"," Define Oracle connection details "],
+  ["punctuation.definition.comment","*/"]
+],[
+   "start",
+  ["keyword.control.general.sas","%let"],
+  ["text"," oracle_path"],
+  ["keyword.operator.logical.sas","="],
+  ["text","oracle_server_path;"]
+],[
+   "start",
+  ["keyword.control.general.sas","%let"],
+  ["text"," schema"],
+  ["keyword.operator.logical.sas","="],
+  ["text","YOUR_SCHEMA;"]
+],[
+   "keyword.language.global.sas",
+  ["keyword.language.global.sas","libname"],
+  ["text"," dwh oracle user"],
+  ["keyword.operator.logical.sas","="],
+  ["support.class.character-class.sas","&schema"],
+  ["text"," password"],
+  ["keyword.operator.logical.sas","="],
+  ["string.quoted.double.sas","\"{SAS-ENCRYPTED}\""],
+  ["text"," "]
+],[
+   "start",
+  ["text","\tpath"],
+  ["keyword.operator.logical.sas","="],
+  ["string.quoted.double.sas","\""],
+  ["support.class.character-class.sas","&oracle_path"],
+  ["string.quoted.double.sas","\""],
+  ["text"," schema"],
+  ["keyword.operator.logical.sas","="],
+  ["support.class.character-class.sas","&schema"],
+  ["text",";"]
+],[
+   "start"
+],[
+   "start",
+  ["punctuation.definition.comment","/*"],
+  ["comment.blcok.sas"," Macro to calculate sales metrics by region "],
+  ["punctuation.definition.comment","*/"]
+],[
+   "start",
+  ["support.class.character-class.sas","%macro"],
+  ["text"," calc_sales_metrics(year"],
+  ["keyword.operator.logical.sas","="],
+  ["text",", outdsn"],
+  ["keyword.operator.logical.sas","="],
+  ["text",");"]
+],[
+   "start",
+  ["text","\t"],
+  ["keyword.control.general.sas","%if"],
+  ["text"," "],
+  ["keyword.control.general.sas","%upcase"],
+  ["text","("],
+  ["support.class.character-class.sas","&request"],
+  ["text",")"],
+  ["keyword.operator.logical.sas","="],
+  ["text","STAT "],
+  ["keyword.control.general.sas","%then"]
+],[
+   "start",
+  ["text","\t\t"],
+  ["keyword.control.general.sas","%do"],
+  ["text",";"]
+],[
+   ["storage.type.function.sas134","storage.type.class.sas8"],
+  ["text","\t\t\t"],
+  ["storage.type.class.sas","proc"],
+  ["text"," "],
+  ["storage.type.function.sas","means"],
+  ["text",";"]
+],[
+   ["storage.type.function.sas134","storage.type.class.sas8"],
+  ["text","\t\t\t\ttitle "],
+  ["string.quoted.double.sas","\"Summary of All Numeric Variables\""],
+  ["text",";"]
+],[
+   "start",
+  ["text","\t\t\t"],
+  ["storage.type.class.sas","run"],
+  ["text",";"]
+],[
+   "start",
+  ["text","\t\t"],
+  ["keyword.control.general.sas","%end"],
+  ["text",";"]
+],[
+   "start",
+  ["text","\t"],
+  ["keyword.control.general.sas","%else"],
+  ["text"," "],
+  ["keyword.control.general.sas","%if"],
+  ["text"," "],
+  ["keyword.control.general.sas","%upcase"],
+  ["text","("],
+  ["support.class.character-class.sas","&request"],
+  ["text",")"],
+  ["keyword.operator.logical.sas","="],
+  ["text","PRINTIT "],
+  ["keyword.control.general.sas","%then"]
+],[
+   "start",
+  ["text","\t\t"],
+  ["keyword.control.general.sas","%do"],
+  ["text",";"]
+],[
+   ["storage.type.function.sas120","storage.type.class.sas8"],
+  ["text","\t\t\t"],
+  ["storage.type.class.sas","proc"],
+  ["text"," "],
+  ["storage.type.function.sas","print"],
+  ["text",";"]
+],[
+   ["storage.type.function.sas120","storage.type.class.sas8"],
+  ["text","\t\t\t\t"],
+  ["keyword.language.procprint.sas","title"],
+  ["text"," "],
+  ["string.quoted.double.sas","\"Listing of Data\""],
+  ["text",";"]
+],[
+   "start",
+  ["text","\t\t\t"],
+  ["storage.type.class.sas","run"],
+  ["text",";"]
+],[
+   "start",
+  ["text","\t\t"],
+  ["keyword.control.general.sas","%end"],
+  ["text",";"]
+],[
+   "start",
+  ["text","\t"],
+  ["keyword.control.general.sas","%else"],
+  ["text"," "],
+  ["keyword.control.general.sas","%put"],
+  ["text"," Incorrect report "],
+  ["support.format.sas","type."],
+  ["text"," Please try "],
+  ["support.format.sas","again."],
+  ["text",";"]
+],[
+   "start"
+],[
+   "start",
+  ["text","\t"],
+  ["keyword.control.general.sas","%do"],
+  ["text"," i"],
+  ["keyword.operator.logical.sas","="],
+  ["constant.numeric.sas","1"],
+  ["text"," "],
+  ["keyword.control.general.sas","%to"],
+  ["text"," "],
+  ["support.class.character-class.sas","&howmany"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["storage.type.class.sas","data"],
+  ["text"," "],
+  ["variable.variable.dataset.language.sas","month"],
+  ["support.class.character-class.sas","&i"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t\t"],
+  ["keyword.control.general.sas","infile"],
+  ["text"," in"],
+  ["support.class.character-class.sas","&i"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t\t"],
+  ["keyword.control.general.sas","input"],
+  ["text"," product cost "],
+  ["keyword.function-call.generic.sas","date"],
+  ["text",";"]
+],[
+   "start",
+  ["text","\t\t"],
+  ["storage.type.class.sas","run"],
+  ["text",";"]
+],[
+   "start",
+  ["text","\t"],
+  ["keyword.control.general.sas","%end"],
+  ["text",";"]
+],[
+   "start"
+],[
+   "text2",
+  ["text","\t"],
+  ["storage.type.class.sas","data"],
+  ["text"," "],
+  ["variable.variable.dataset.language.sas","_null_"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","do"],
+  ["text"," i"],
+  ["keyword.operator.logical.sas","="],
+  ["constant.numeric.sas","1"],
+  ["text"," "],
+  ["keyword.control.conditional.sas","to"],
+  ["text"," "],
+  ["constant.numeric.sas","4"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t\t"],
+  ["keyword.control.general.sas","put"],
+  ["text"," ;"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","end"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","do"],
+  ["text"," "],
+  ["keyword.control.conditional.sas","until"],
+  ["text","("],
+  ["keyword.function-call.generic.sas","n"],
+  ["keyword.operator.logical.sas",">="],
+  ["constant.numeric.sas","5"],
+  ["text",");"]
+],[
+   "text2",
+  ["text","\t\t\t"],
+  ["keyword.control.general.sas","put"],
+  ["text"," "],
+  ["keyword.function-call.generic.sas","n"],
+  ["keyword.operator.logical.sas","="],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t\t"],
+  ["keyword.function-call.generic.sas","n"],
+  ["entity.name.arithmetic.sas","+"],
+  ["constant.numeric.sas","1"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","end"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","do"],
+  ["text"," "],
+  ["keyword.control.conditional.sas","while"],
+  ["text","("],
+  ["keyword.function-call.generic.sas","n"],
+  ["keyword.operator.logical.sas","<"],
+  ["constant.numeric.sas","5"],
+  ["text",");"]
+],[
+   "text2",
+  ["text","\t\t\t"],
+  ["keyword.control.general.sas","put"],
+  ["text"," "],
+  ["keyword.function-call.generic.sas","n"],
+  ["keyword.operator.logical.sas","="],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t\t"],
+  ["keyword.function-call.generic.sas","n"],
+  ["entity.name.arithmetic.sas","+"],
+  ["constant.numeric.sas","1"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","end"],
+  ["text",";"]
+],[
+   "text2"
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.general.sas","select"],
+  ["text"," (a);"]
+],[
+   "text2",
+  ["text","\t\t\twhen ("],
+  ["constant.numeric.sas","1"],
+  ["text",") "],
+  ["keyword.control.general.sas","x"],
+  ["keyword.operator.logical.sas","="],
+  ["keyword.control.general.sas","x"],
+  ["entity.name.arithmetic.sas","*"],
+  ["constant.numeric.sas","10"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t\twhen ("],
+  ["constant.numeric.sas","2"],
+  ["text",");"]
+],[
+   "text2",
+  ["text","\t\t\twhen ("],
+  ["constant.numeric.sas","3"],
+  ["text",","],
+  ["constant.numeric.sas","4"],
+  ["text",","],
+  ["constant.numeric.sas","5"],
+  ["text",") "],
+  ["keyword.control.general.sas","x"],
+  ["keyword.operator.logical.sas","="],
+  ["keyword.control.general.sas","x"],
+  ["entity.name.arithmetic.sas","*"],
+  ["constant.numeric.sas","100"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t\totherwise "],
+  ["keyword.control.general.sas","put"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","end"],
+  ["text",";"]
+],[
+   "text2"
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","if"],
+  ["text"," "],
+  ["keyword.control.general.sas","x"],
+  ["text"," "],
+  ["keyword.control.conditional.sas","then"],
+  ["text"," "],
+  ["keyword.control.general.sas","delete"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","if"],
+  ["text"," status"],
+  ["keyword.operator.logical.sas","="],
+  ["string.quoted.single.sas","'OK'"],
+  ["keyword.operator.logical.sas"," and "],
+  ["text","type"],
+  ["keyword.operator.logical.sas","="],
+  ["constant.numeric.sas","3"],
+  ["text"," "],
+  ["keyword.control.conditional.sas","then"],
+  ["text"," "],
+  ["keyword.function-call.generic.sas","count"],
+  ["entity.name.arithmetic.sas","+"],
+  ["constant.numeric.sas","1"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","if"],
+  ["text"," age"],
+  ["keyword.operator.logical.sas"," ne "],
+  ["text","agecheck "],
+  ["keyword.control.conditional.sas","then"],
+  ["text"," "],
+  ["keyword.control.general.sas","delete"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","if"],
+  ["text"," "],
+  ["keyword.control.general.sas","x"],
+  ["keyword.operator.logical.sas","="],
+  ["constant.numeric.sas","0"],
+  ["text"," "],
+  ["keyword.control.conditional.sas","then"],
+  ["text","  "]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","if"],
+  ["text"," y"],
+  ["keyword.operator.logical.sas"," ne "],
+  ["constant.numeric.sas","0"],
+  ["text"," "],
+  ["keyword.control.conditional.sas","then"],
+  ["text"," "],
+  ["keyword.control.general.sas","put"],
+  ["text"," "],
+  ["string.quoted.single.sas","'X ZERO, Y NONZERO'"],
+  ["text","; "]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","else"],
+  ["text"," "],
+  ["keyword.control.general.sas","put"],
+  ["text"," "],
+  ["string.quoted.single.sas","'X ZERO, Y ZERO'"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","else"],
+  ["text"," "],
+  ["keyword.control.general.sas","put"],
+  ["text"," "],
+  ["string.quoted.single.sas","'X NONZERO'"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","if"],
+  ["text"," answer"],
+  ["keyword.operator.logical.sas","="],
+  ["constant.numeric.sas","9"],
+  ["text"," "],
+  ["keyword.control.conditional.sas","then"]
+],[
+   "text2",
+  ["text","\t\t\t"],
+  ["keyword.control.conditional.sas","do"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t\t\tanswer"],
+  ["keyword.operator.logical.sas","="],
+  ["text",".;"]
+],[
+   "text2",
+  ["text","\t\t\t\t"],
+  ["keyword.control.general.sas","put"],
+  ["text"," "],
+  ["string.quoted.single.sas","'INVALID ANSWER FOR '"],
+  ["text"," id"],
+  ["keyword.operator.logical.sas","="],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t\t"],
+  ["keyword.control.conditional.sas","end"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t"],
+  ["keyword.control.conditional.sas","else"]
+],[
+   "text2",
+  ["text","\t\t\t"],
+  ["keyword.control.conditional.sas","do"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t\t\tanswer"],
+  ["keyword.operator.logical.sas","="],
+  ["text","answer10;"]
+],[
+   "text2",
+  ["text","\t\t\t\tvalid"],
+  ["entity.name.arithmetic.sas","+"],
+  ["constant.numeric.sas","1"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","\t\t\t"],
+  ["keyword.control.conditional.sas","end"],
+  ["text",";"]
+],[
+   "start",
+  ["text","\t"],
+  ["storage.type.class.sas","run"],
+  ["text",";"]
+],[
+   "start"
+],[
+   "start",
+  ["text","\t"],
+  ["punctuation.definition.comment","/*"],
+  ["comment.blcok.sas"," Extract base sales data from Oracle "],
+  ["punctuation.definition.comment","*/"]
+],[
+   "storage.type.class.sas7",
+  ["text","    "],
+  ["storage.type.class.sas","proc"],
+  ["storage.type.class.sas"," "],
+  ["storage.type.function.sas","sql"],
+  ["text",";"]
+],[
+   "storage.type.class.sas7",
+  ["text","        connect to oracle (user"],
+  ["keyword.operator.logical.sas","="],
+  ["support.class.character-class.sas","&schema"],
+  ["text"," password"],
+  ["keyword.operator.logical.sas","="],
+  ["string.quoted.double.sas","\"{SAS-ENCRYPTED}\""],
+  ["text"," "]
+],[
+   "storage.type.class.sas7",
+  ["text","            path"],
+  ["keyword.operator.logical.sas","="],
+  ["string.quoted.double.sas","\""],
+  ["support.class.character-class.sas","&oracle_path"],
+  ["string.quoted.double.sas","\""],
+  ["text",");"]
+],[
+   "storage.type.class.sas7",
+  ["text","        "],
+  ["keyword.other.sql","create table"],
+  ["text"," "],
+  ["constant.language.sas","work."],
+  ["text","raw_sales "],
+  ["keyword.operator.logical.sql","as"]
+],[
+   "storage.type.class.sas7",
+  ["text","        "],
+  ["keyword.other.sql","select"],
+  ["text"," "],
+  ["entity.name.arithmetic.sas","*"],
+  ["text"," "],
+  ["keyword.other.sql","from"],
+  ["text"," connection to oracle"]
+],[
+   "storage.type.class.sas7",
+  ["text","        ("]
+],[
+   "storage.type.class.sas7",
+  ["text","            "],
+  ["keyword.other.sql","SELECT"],
+  ["text"," "]
+],[
+   "storage.type.class.sas7",
+  ["text","                "],
+  ["constant.language.sas","r."],
+  ["text","REGION_NAME,"]
+],[
+   "storage.type.class.sas7",
+  ["text","                "],
+  ["constant.language.sas","p."],
+  ["text","PRODUCT_CATEGORY,"]
+],[
+   "storage.type.class.sas7",
+  ["text","                "],
+  ["constant.language.sas","s."],
+  ["text","SALE_DATE,"]
+],[
+   "storage.type.class.sas7",
+  ["text","                "],
+  ["constant.language.sas","s."],
+  ["text","QUANTITY,"]
+],[
+   "storage.type.class.sas7",
+  ["text","                "],
+  ["constant.language.sas","s."],
+  ["text","UNIT_PRICE,"]
+],[
+   "storage.type.class.sas7",
+  ["text","                "],
+  ["constant.language.sas","s."],
+  ["text","DISCOUNT"]
+],[
+   "storage.type.class.sas7",
+  ["text","            "],
+  ["keyword.other.sql","FROM"],
+  ["text"," "]
+],[
+   "storage.type.class.sas7",
+  ["text","                SALES s"]
+],[
+   "storage.type.class.sas7",
+  ["text","                JOIN REGIONS r "],
+  ["keyword.operator.logical.sql","ON"],
+  ["text"," "],
+  ["constant.language.sas","s."],
+  ["text","REGION_ID "],
+  ["keyword.operator.logical.sas","="],
+  ["text"," "],
+  ["constant.language.sas","r."],
+  ["text","REGION_ID"]
+],[
+   "storage.type.class.sas7",
+  ["text","                JOIN PRODUCTS p "],
+  ["keyword.operator.logical.sql","ON"],
+  ["text"," "],
+  ["constant.language.sas","s."],
+  ["text","PRODUCT_ID "],
+  ["keyword.operator.logical.sas","="],
+  ["text"," "],
+  ["constant.language.sas","p."],
+  ["text","PRODUCT_ID"]
+],[
+   "storage.type.class.sas7",
+  ["text","            "],
+  ["keyword.other.sql","WHERE"],
+  ["text"," "]
+],[
+   "storage.type.class.sas7",
+  ["text","                EXTRACT("],
+  ["keyword.function-call.generic.sas","YEAR"],
+  ["text"," "],
+  ["keyword.other.sql","FROM"],
+  ["text"," "],
+  ["constant.language.sas","s."],
+  ["text","SALE_DATE) "],
+  ["keyword.operator.logical.sas","="],
+  ["text"," "],
+  ["support.class.character-class.sas","&year"]
+],[
+   "storage.type.class.sas7",
+  ["text","        );"]
+],[
+   "storage.type.class.sas7",
+  ["text","        disconnect "],
+  ["keyword.other.sql","from"],
+  ["text"," oracle;"]
+],[
+   "start",
+  ["text","    "],
+  ["storage.type.class.sas","quit"],
+  ["text",";"]
+],[
+   "start"
+],[
+   "start",
+  ["text","    "],
+  ["punctuation.definition.comment","/*"],
+  ["comment.blcok.sas"," Create monthly aggregates using data step "],
+  ["punctuation.definition.comment","*/"]
+],[
+   "text2",
+  ["text","    "],
+  ["storage.type.class.sas","data"],
+  ["text"," "],
+  ["entity.name.library.sas","work."],
+  ["variable.variable.dataset.language.sas","monthly_sales"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","        "],
+  ["keyword.general.lookup.sas","set"],
+  ["text"," "],
+  ["entity.name.library.sas","work."],
+  ["variable.variable.dataset.language.sas","raw_sales"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","        sale_month "],
+  ["keyword.operator.logical.sas","="],
+  ["text"," "],
+  ["keyword.function-call.generic.sas","month"],
+  ["text","(sale_date);"]
+],[
+   "text2",
+  ["text","        revenue "],
+  ["keyword.operator.logical.sas","="],
+  ["text"," quantity "],
+  ["entity.name.arithmetic.sas","*"],
+  ["text"," unit_price "],
+  ["entity.name.arithmetic.sas","*"],
+  ["text"," ("],
+  ["constant.numeric.sas","1"],
+  ["text"," "],
+  ["entity.name.arithmetic.sas","-"],
+  ["text"," discount);"]
+],[
+   "text2",
+  ["text","        "],
+  ["keyword.control.general.sas","format"],
+  ["text"," sale_date "],
+  ["support.format.sas","date9."],
+  ["text"," revenue "],
+  ["support.format.sas","dollar12.2"],
+  ["text",";"]
+],[
+   "start",
+  ["text","    "],
+  ["storage.type.class.sas","run"],
+  ["text",";"]
+],[
+   "start"
+],[
+   "start",
+  ["text","    "],
+  ["punctuation.definition.comment","/*"],
+  ["comment.blcok.sas"," Sort data for subsequent processing "],
+  ["punctuation.definition.comment","*/"]
+],[
+   ["storage.type.function.sas133","storage.type.class.sas8"],
+  ["text","    "],
+  ["storage.type.class.sas","proc"],
+  ["text"," "],
+  ["storage.type.function.sas","sort"],
+  ["text"," "],
+  ["keyword.language.procsort.sas","data"],
+  ["text","="],
+  ["entity.name.library.sas","work."],
+  ["variable.variable.dataset.language.sas","monthly_sales"],
+  ["text",";"]
+],[
+   ["storage.type.function.sas133","storage.type.class.sas8"],
+  ["text","        "],
+  ["keyword.language.procsort.sas","by"],
+  ["text"," region_name product_category sale_month;"]
+],[
+   "start",
+  ["text","    "],
+  ["storage.type.class.sas","run"],
+  ["text",";"]
+],[
+   "start"
+],[
+   "start",
+  ["text","    "],
+  ["punctuation.definition.comment","/*"],
+  ["comment.blcok.sas"," Calculate summary statistics using proc means "],
+  ["punctuation.definition.comment","*/"]
+],[
+   ["storage.type.function.sas134","storage.type.class.sas8"],
+  ["text","    "],
+  ["storage.type.class.sas","proc"],
+  ["text"," "],
+  ["storage.type.function.sas","means"],
+  ["text"," "],
+  ["keyword.language.procmeans.sas","data"],
+  ["text","="],
+  ["entity.name.library.sas","work."],
+  ["variable.variable.dataset.language.sas","monthly_sales"],
+  ["text"," "],
+  ["keyword.language.procmeans.sas","noprint"],
+  ["text",";"]
+],[
+   ["storage.type.function.sas134","storage.type.class.sas8"],
+  ["text","        "],
+  ["keyword.language.procmeans.sas","class"],
+  ["text"," region_name product_category sale_month;"]
+],[
+   ["storage.type.function.sas134","storage.type.class.sas8"],
+  ["text","        "],
+  ["keyword.language.procmeans.sas","var"],
+  ["text"," quantity revenue;"]
+],[
+   ["keyword.language.procmeans.sas136","storage.type.function.sas134","storage.type.function.sas134","storage.type.class.sas8"],
+  ["text","        "],
+  ["keyword.language.procmeans.sas","output"],
+  ["text"," "],
+  ["keyword.language.procmeans.sas","out"],
+  ["text","=&outdsn"]
+],[
+   ["keyword.language.procmeans.sas136","storage.type.function.sas134","storage.type.function.sas134","storage.type.class.sas8"],
+  ["text","            "],
+  ["keyword.language.procmeans.sas","sum"],
+  ["text","(quantity)=total_quantity"]
+],[
+   ["keyword.language.procmeans.sas136","storage.type.function.sas134","storage.type.function.sas134","storage.type.class.sas8"],
+  ["text","            "],
+  ["keyword.language.procmeans.sas","sum"],
+  ["text","(revenue)=total_revenue"]
+],[
+   ["keyword.language.procmeans.sas136","storage.type.function.sas134","storage.type.function.sas134","storage.type.class.sas8"],
+  ["text","            "],
+  ["keyword.language.procmeans.sas","mean"],
+  ["text","(revenue)=avg_revenue"]
+],[
+   ["storage.type.function.sas134","storage.type.class.sas8"],
+  ["text","            "],
+  ["keyword.language.procmeans.sas","std"],
+  ["text","(revenue)=std_revenue;"]
+],[
+   "start",
+  ["text","    "],
+  ["storage.type.class.sas","run"],
+  ["text",";"]
+],[
+   "start"
+],[
+   "start",
+  ["text","    "],
+  ["punctuation.definition.comment","/*"],
+  ["comment.blcok.sas"," Add trend calculations "],
+  ["punctuation.definition.comment","*/"]
+],[
+   "storage.type.class.sas8",
+  ["text","    "],
+  ["storage.type.class.sas","proc"],
+  ["text"," "],
+  ["storage.type.function.sas","expand"],
+  ["text"," data"],
+  ["keyword.operator.logical.sas","="],
+  ["support.class.character-class.sas","&outdsn"],
+  ["text"," out"],
+  ["keyword.operator.logical.sas","="],
+  ["support.class.character-class.sas","&outdsn"],
+  ["text","(drop"],
+  ["keyword.operator.logical.sas","="],
+  ["text","_: WHERE"],
+  ["keyword.operator.logical.sas","="],
+  ["text","(_TYPE_ "],
+  ["keyword.operator.logical.sas","="],
+  ["text"," "],
+  ["constant.numeric.sas","7"],
+  ["text","));"]
+],[
+   "storage.type.class.sas8",
+  ["text","        by region_name product_category;"]
+],[
+   "storage.type.class.sas8",
+  ["text","        id sale_month;"]
+],[
+   "storage.type.class.sas8",
+  ["text","        "],
+  ["storage.type.function.sas","convert"],
+  ["text"," total_revenue "],
+  ["keyword.operator.logical.sas","="],
+  ["text"," revenue_ma "],
+  ["entity.name.arithmetic.sas","/"],
+  ["text"," transformout"],
+  ["keyword.operator.logical.sas","="],
+  ["text","(mov "],
+  ["constant.numeric.sas","3"],
+  ["text",");"]
+],[
+   "start",
+  ["text","    "],
+  ["storage.type.class.sas","run"],
+  ["text",";"]
+],[
+   "start"
+],[
+   "start",
+  ["text","    "],
+  ["punctuation.definition.comment","/*"],
+  ["comment.blcok.sas"," Format final output "],
+  ["punctuation.definition.comment","*/"]
+],[
+   "text2",
+  ["text","    "],
+  ["storage.type.class.sas","data"],
+  ["text"," "],
+  ["support.class.character-class.sas","&outdsn"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","        "],
+  ["keyword.general.lookup.sas","set"],
+  ["text"," "],
+  ["support.class.character-class.sas","&outdsn"],
+  ["text",";"]
+],[
+   "text2",
+  ["text","        "],
+  ["keyword.control.general.sas","format"],
+  ["text"," total_revenue avg_revenue revenue_ma dollar12"],
+  ["constant.numeric.sas",".2"]
+],[
+   "text2",
+  ["text","               total_quantity "],
+  ["support.format.sas","comma8."],
+  ["text",";"]
+],[
+   "text2",
+  ["text","        "],
+  ["keyword.control.general.sas","label"],
+  ["text"," "]
+],[
+   "text2",
+  ["text","            total_quantity "],
+  ["keyword.operator.logical.sas","="],
+  ["text"," "],
+  ["string.quoted.double.sas","\"Total Units Sold\""]
+],[
+   "text2",
+  ["text","            total_revenue "],
+  ["keyword.operator.logical.sas","="],
+  ["text"," "],
+  ["string.quoted.double.sas","\"Total Revenue\""]
+],[
+   "text2",
+  ["text","            avg_revenue "],
+  ["keyword.operator.logical.sas","="],
+  ["text"," "],
+  ["string.quoted.double.sas","\"Average Revenue\""]
+],[
+   "text2",
+  ["text","            revenue_ma "],
+  ["keyword.operator.logical.sas","="],
+  ["text"," "],
+  ["string.quoted.double.sas","\"3-Month Moving Average Revenue\""]
+],[
+   "text2",
+  ["text","            std_revenue "],
+  ["keyword.operator.logical.sas","="],
+  ["text"," "],
+  ["string.quoted.double.sas","\"Revenue Standard Deviation\""],
+  ["text",";"]
+],[
+   "start",
+  ["text","    "],
+  ["storage.type.class.sas","run"],
+  ["text",";"]
+],[
+   "start",
+  ["support.class.character-class.sas","%mend"],
+  ["text"," calc_sales_metrics;"]
+],[
+   "start"
+],[
+   "start",
+  ["punctuation.definition.comment","/*"],
+  ["comment.blcok.sas"," Example usage of the macro "],
+  ["punctuation.definition.comment","*/"]
+],[
+   "start",
+  ["support.class.character-class.sas","%calc_sales_metrics("],
+  ["variable.parameter.macro.sas","year"],
+  ["text","="],
+  ["text","2023, "],
+  ["variable.parameter.macro.sas","outdsn"],
+  ["text","="],
+  ["text","work.sales_metrics_2023);"]
+],[
+   "start"
+],[
+   "start",
+  ["punctuation.definition.comment","/*"],
+  ["comment.blcok.sas"," Create summary report "],
+  ["punctuation.definition.comment","*/"]
+],[
+   ["storage.type.function.sas125","storage.type.class.sas8"],
+  ["storage.type.class.sas","proc"],
+  ["text"," "],
+  ["storage.type.function.sas","report"],
+  ["text"," "],
+  ["keyword.language.proccompare.sas","data"],
+  ["text","="],
+  ["entity.name.library.sas","work."],
+  ["variable.variable.dataset.language.sas","sales_metrics_2023"],
+  ["text",";"]
+],[
+   ["storage.type.function.sas125","storage.type.class.sas8"],
+  ["text","    "],
+  ["keyword.language.procreport.sas","column"],
+  ["text"," region_name product_category total_quantity total_revenue revenue_ma;"]
+],[
+   ["storage.type.function.sas125","storage.type.class.sas8"],
+  ["text","    "],
+  ["keyword.language.procreport.sas","define"],
+  ["text"," region_name "],
+  ["entity.name.arithmetic.sas","/"],
+  ["text"," "],
+  ["keyword.language.procreport.sas","group"],
+  ["text"," "],
+  ["string.quoted.double.sas","\"Region\""],
+  ["text",";"]
+],[
+   ["storage.type.function.sas125","storage.type.class.sas8"],
+  ["text","    "],
+  ["keyword.language.procreport.sas","define"],
+  ["text"," product_category "],
+  ["entity.name.arithmetic.sas","/"],
+  ["text"," "],
+  ["keyword.language.procreport.sas","group"],
+  ["text"," "],
+  ["string.quoted.double.sas","\"Product Category\""],
+  ["text",";"]
+],[
+   ["storage.type.function.sas125","storage.type.class.sas8"],
+  ["text","    "],
+  ["keyword.language.procreport.sas","define"],
+  ["text"," total_quantity "],
+  ["entity.name.arithmetic.sas","/"],
+  ["text"," "],
+  ["keyword.language.procreport.sas","analysis"],
+  ["text"," "],
+  ["keyword.language.procreport.sas","sum"],
+  ["text"," "],
+  ["string.quoted.double.sas","\"Total Units\""],
+  ["text",";"]
+],[
+   ["storage.type.function.sas125","storage.type.class.sas8"],
+  ["text","    "],
+  ["keyword.language.procreport.sas","define"],
+  ["text"," total_revenue "],
+  ["entity.name.arithmetic.sas","/"],
+  ["text"," "],
+  ["keyword.language.procreport.sas","analysis"],
+  ["text"," "],
+  ["keyword.language.procreport.sas","sum"],
+  ["text"," "],
+  ["string.quoted.double.sas","\"Total Revenue\""],
+  ["text",";"]
+],[
+   ["storage.type.function.sas125","storage.type.class.sas8"],
+  ["text","    "],
+  ["keyword.language.procreport.sas","define"],
+  ["text"," revenue_ma "],
+  ["entity.name.arithmetic.sas","/"],
+  ["text"," "],
+  ["keyword.language.procreport.sas","analysis"],
+  ["text"," mean "],
+  ["string.quoted.double.sas","\"3-Month Moving Average\""],
+  ["text",";"]
+],[
+   ["storage.type.function.sas125","storage.type.class.sas8"],
+  ["text","    "]
+],[
+   ["keyword.language.procreport.compute.sas","storage.type.function.sas125","storage.type.function.sas125","storage.type.class.sas8"],
+  ["text","    "],
+  ["keyword.language.procreport.compute.sas","compute after"],
+  ["text"," region_name;"]
+],[
+   ["keyword.language.procreport.compute.sas","storage.type.function.sas125","storage.type.function.sas125","storage.type.class.sas8"],
+  ["text","        "],
+  ["keyword.language.procreport.sas","line"],
+  ["text"," "],
+  ["string.quoted.single.sas","' '"],
+  ["text",";"]
+],[
+   ["storage.type.function.sas125","storage.type.class.sas8"],
+  ["text","    "],
+  ["keyword.language.procreport.compute.sas","endcomp;"]
+],[
+   "start",
+  ["storage.type.class.sas","run"],
+  ["text",";"]
+]]
