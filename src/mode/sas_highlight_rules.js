@@ -3377,7 +3377,7 @@ var SasHighlightRules = function() {
                 caseInsensitive: true
             }]
         }]
-    }
+    };
     
     this.normalizeRules();
 };
@@ -3385,7 +3385,7 @@ var SasHighlightRules = function() {
 SasHighlightRules.metaData = {
     name: "sas",
     scopeName: "source.sas"
-}
+};
 
 
 oop.inherits(SasHighlightRules, TextHighlightRules);

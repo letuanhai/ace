@@ -4,7 +4,6 @@ if (typeof process !== "undefined") require("amd-loader");
 
 var SASMode = require("../sas").Mode;
 var EditSession = require("../../edit_session").EditSession;
-const { test } = require("asyncjs");
 var assert = require("../../test/assertions");
 
 

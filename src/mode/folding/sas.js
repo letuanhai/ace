@@ -48,7 +48,7 @@ oop.inherits(FoldMode, BaseFoldMode);
     this.testMarkerSAS = (line) => ({
         isStart: this.foldingStartMarkerSAS.test(line),
         isEnd: this.foldingStopMarkerSAS.test(line)
-    })
+    });
 
     this.getStartMarkerSAS = function (line) {
         var match = this.foldingStartMarkerSAS.exec(line);
@@ -57,7 +57,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             keyword: (match[2] || match[4] || '').toLowerCase(),
             index: match.index + 1 + (match[1] || match[3] || '').length,
         };
-    }
+    };
 
     this.getStopMarkerSAS = function (line) {
         var match = this.foldingStopMarkerSAS.exec(line);
@@ -66,7 +66,7 @@ oop.inherits(FoldMode, BaseFoldMode);
             keyword: (match[2] || match[4] || '').toLowerCase().split(/\s+/)[0],
             index: match.index + 1 + (match[1] || match[3] || '').length,
         };
-    }
+    };
 
     this.getFoldWidgetRange = function (session, foldStyle, row) {
         var line = session.getLine(row);
@@ -99,7 +99,7 @@ oop.inherits(FoldMode, BaseFoldMode);
 
         var match = this.getStopMarkerSAS(line);
         if (this.indentKeywordsSAS[match.keyword]) {
-            var token = session.getTokenAt(row, match.index)
+            var token = session.getTokenAt(row, match.index);
             var type = token.type;
             if (this.tokenTypeSAS.includes(type))
                 return "end";
