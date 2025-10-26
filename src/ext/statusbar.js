@@ -60,13 +60,13 @@ class StatusBar {
         var sel = editor.selection;
         var c = sel.lead;
 
+        var linesSelected = "";
         if (!sel.isEmpty()) {
             var r = editor.getSelectionRange();
-            add("(" + (r.end.row - r.start.row) + ":" + (r.end.column - r.start.column) + ")", " ");
+            linesSelected = ` (${r.end.row - r.start.row + 1} selected)`;
         }
-        add((c.row + 1) + ":" + (c.column + 1), " ");
-        if (sel.rangeCount)
-            add("[" + sel.rangeCount + "]", " ");
+        add(` Line ${c.row + 1}/${editor.session.getLength()}${linesSelected}, Col ${c.column + 1} `);
+        if (sel.rangeCount) add("[" + sel.rangeCount + "]", " ");
         status.pop();
         this.element.textContent = status.join("");
     }
